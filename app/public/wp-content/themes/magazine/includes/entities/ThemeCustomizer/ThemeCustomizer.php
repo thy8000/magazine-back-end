@@ -20,6 +20,22 @@ const CUSTOM_COLORS = [
         'label' => 'Header', 
         'priority' => 2,
     ],
+    'iconColor' => [
+        'label' => 'Ícones',
+        'priority' => 3,    
+    ],
+    'iconHoverColor' => [
+        'label' => 'Ícones (Hover)',
+        'priority' => 4,    
+    ],
+    'linkColor' => [
+        'label' => 'Links',
+        'priority' => 5,    
+    ],
+    'linkHoverColor' => [
+        'label' => 'Links (Hover)',
+        'priority' => 6,    
+    ],
 ];
 
 class ThemeCustomizer
@@ -44,10 +60,7 @@ class ThemeCustomizer
         register_graphql_object_type('CustomLogo', [
             'description' => __('Logo personalizado do Customizer', 'magazine'),
             'fields' => [
-                'url'         => ['type' => 'String'],
-                'description' => ['type' => 'String'],
-                'width'       => ['type' => 'Int'],
-                'height'      => ['type' => 'Int'],
+                'data' => ['type' => 'String'],
             ],
         ]);
 
@@ -55,15 +68,17 @@ class ThemeCustomizer
             'type' => 'CustomLogo',
             'resolve' => function () {
                 if(empty(get_theme_mod('custom_logo'))){
-                    return [];
+                    return ['data' => ''];
                 }
 
-                return [
+                $custom_logo_data = [
                     'url'         => wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' )[0],
                     'description' => get_bloginfo('name'),
                     'width'       => CUSTOM_LOGO_SIZE['width'],
                     'height'      => CUSTOM_LOGO_SIZE['height'],
                 ];
+
+                return ["data" => json_encode($custom_logo_data)];
             },
         ]);
     }
@@ -88,16 +103,10 @@ class ThemeCustomizer
     }
 
     public function custom_colors_graphql() {
-        $custom_colors_object_fields = [];
-
-        foreach(CUSTOM_COLORS as $key => $color) {
-            $custom_colors_object_fields[$key] = ['type' => 'String'];
-        }
-
         register_graphql_object_type('CustomColors', [
             'description' => __('Cores personalizadas do Customizer', 'magazine'),
             'fields' => [
-                ...$custom_colors_object_fields
+                'data' => ['type' => 'String'],
             ],
         ]);
 
@@ -111,7 +120,7 @@ class ThemeCustomizer
                     $custom_color_fields[$key] = get_theme_mod($key) ? get_theme_mod($key) : '#FFFFFF';
                 }
 
-                return $custom_color_fields;
+                return ["data" => json_encode($custom_color_fields)];
             },
         ]);
     }
@@ -159,25 +168,7 @@ class ThemeCustomizer
                     ];
                 }
 
-                return [
-                    "data" => json_encode($social_share_field)
-                ];
-/*
-                $social_share_fields = [];
-
-                foreach(SOCIAL_MEDIA_LIST as $social) {
-                    $slug = sanitize_title($social);
-
-                    $social_object = [
-                        'slug' => $slug,
-                        'url'  => get_theme_mod("custom_social_share_{$slug}") ? get_theme_mod("custom_social_share_{$slug}") : '',
-                    ];
-
-                    $social_share_fields[$slug] = json_encode($social_object);
-                }
-
-                return $social_share_fields;
-                */
+                return ["data" => json_encode($social_share_field)];
             },
         ]);
     }
