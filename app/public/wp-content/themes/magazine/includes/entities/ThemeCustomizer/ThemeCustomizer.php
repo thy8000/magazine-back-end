@@ -36,6 +36,18 @@ const CUSTOM_COLORS = [
         'label' => 'Links (Hover)',
         'priority' => 6,    
     ],
+    'titleColor' => [
+        'label' => 'Títulos',
+        'priority' => 7,    
+    ],
+    'titleHoverColor' => [
+        'label' => 'Títulos (Hover)',
+        'priority' => 8,    
+    ],
+    'textColor' => [
+        'label' => 'Textos',
+        'priority' => 9,    
+    ],
 ];
 
 class ThemeCustomizer
