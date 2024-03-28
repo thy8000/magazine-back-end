@@ -7,31 +7,99 @@ if(!defined('ABSPATH')) {
 const PARENT_PAGE_FIELD = 'theme-options';
 
 const HEADER_SUBPAGE_FIELDS = [
-    [
-        'key' => 'field_65fe105c97b09',
-        'label' => 'Lista de Categorias',
-        'name' => 'categoriesList',
-        'aria-label' => '',
-        'type' => 'taxonomy',
-        'instructions' => '',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => [
-            'width' => '',
-            'class' => '',
-            'id' => '',
+    'categoriesList' => [
+        'key' => 'group_65fe1003a0974',
+        'title' => 'Categorias',
+        'fields' => [
+            [
+                'key' => 'field_65fe105c97b09',
+                'label' => 'Lista de Categorias',
+                'name' => 'categoriesList',
+                'aria-label' => '',
+                'type' => 'taxonomy',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'taxonomy' => 'category',
+                'add_term' => 1,
+                'save_terms' => 0,
+                'load_terms' => 0,
+                'return_format' => 'object',
+                'field_type' => 'multi_select',
+                'allow_null' => 1,
+                'bidirectional' => 0,
+                'multiple' => 0,
+                'bidirectional_target' => [],
+            ],
         ],
-        'taxonomy' => 'category',
-        'add_term' => 1,
-        'save_terms' => 0,
-        'load_terms' => 0,
-        'return_format' => 'object',
-        'field_type' => 'multi_select',
-        'allow_null' => 1,
-        'bidirectional' => 0,
-        'multiple' => 0,
-        'bidirectional_target' => [],
-    ]
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'header',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+    ],
+    'transparentHeader' => [
+        'key' => 'group_6604b54cb74cc',
+        'title' => 'Cabeçalho transparente',
+        'fields' => [
+            [
+                'key' => 'field_6604b54c8d372',
+                'label' => 'Cabeçalho transparente',
+                'name' => 'transparentHeader',
+                'aria-label' => '',
+                'type' => 'true_false',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'message' => '',
+                'default_value' => 0,
+                'ui' => 0,
+                'ui_on_text' => '',
+                'ui_off_text' => '',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'header',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,      
+    ],
 ];
 
 class ThemeOptions
@@ -80,64 +148,19 @@ class ThemeOptions
             return;
         }
 
-        $header_subpage_field_group = [
-            'key' => 'group_65fe1003a0974',
-            'title' => esc_html__('Opções do Tema - Cabeçalho', 'magazine'),
-            'fields' => [
-                [
-                    'key' => 'field_65fe100397b08',
-                    'label' => esc_html__('Categorias', 'magazine'),
-                    'name' => '',
-                    'aria-label' => '',
-                    'type' => 'tab',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => [
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ],
-                    'placement' => 'top',
-                    'endpoint' => 0,
-                ],
-                ...HEADER_SUBPAGE_FIELDS,
-            ],
-            'location' => [
-                [
-                    [
-                        'param' => 'options_page',
-                        'operator' => '==',
-                        'value' => 'header',
-                    ],
-                ],
-            ],
-            'menu_order' => 0,
-            'position' => 'normal',
-            'style' => 'default',
-            'label_placement' => 'top',
-            'instruction_placement' => 'label',
-            'hide_on_screen' => '',
-            'active' => true,
-            'description' => '',
-            'show_in_rest' => 0,
-        ];
+        foreach(HEADER_SUBPAGE_FIELDS as $fields) {
+            //debug($fields);
 
-        acf_add_local_field_group($header_subpage_field_group);        
+            acf_add_local_field_group($fields);        
+        }
     }
 
     public function register_header_subpage_fields_graphql() 
     {
-        $header_subpage_field_group = [];
-
-        foreach(HEADER_SUBPAGE_FIELDS as $header_fields) {
-            $header_subpage_field_group[$header_fields['name']]['type'] = 'String'; 
-        }
-
         register_graphql_object_type('ThemeOptionsHeader', [
             'description' => __('Logo personalizado do Customizer', 'magazine'),
             'fields' => [
-                ...$header_subpage_field_group,
+                'data' => ['type' => 'String'],
             ],
         ]);
 
@@ -146,11 +169,13 @@ class ThemeOptions
             'resolve' => function () {
                 $header_subpage_fields = [];
 
-                foreach(HEADER_SUBPAGE_FIELDS as $header_field) {
-                    $header_subpage_fields[$header_field['name']] = json_encode(get_field($header_field['name'], 'option'));
+                foreach(HEADER_SUBPAGE_FIELDS as $key => $header_field) {
+                    $header_subpage_fields[$key] = get_field($key, 'option') ?? '';
                 }
 
-                return $header_subpage_fields;
+                return [
+                    'data' => json_encode($header_subpage_fields),
+                ];
             },
         ]);
     }
