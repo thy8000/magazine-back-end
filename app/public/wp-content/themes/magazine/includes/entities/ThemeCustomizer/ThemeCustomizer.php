@@ -20,33 +20,37 @@ const CUSTOM_COLORS = [
         'label' => 'Header', 
         'priority' => 2,
     ],
+    'headerMegaMenuColor' => [
+        'label' => 'Header Mega Menu', 
+        'priority' => 3,
+    ],
     'iconColor' => [
         'label' => 'Ícones',
-        'priority' => 3,    
+        'priority' => 4,    
     ],
     'iconHoverColor' => [
         'label' => 'Ícones (Hover)',
-        'priority' => 4,    
+        'priority' => 5,    
     ],
     'linkColor' => [
         'label' => 'Links',
-        'priority' => 5,    
+        'priority' => 6,    
     ],
     'linkHoverColor' => [
         'label' => 'Links (Hover)',
-        'priority' => 6,    
+        'priority' => 7,    
     ],
     'titleColor' => [
         'label' => 'Títulos',
-        'priority' => 7,    
+        'priority' => 8,    
     ],
     'titleHoverColor' => [
         'label' => 'Títulos (Hover)',
-        'priority' => 8,    
+        'priority' => 9,    
     ],
     'textColor' => [
         'label' => 'Textos',
-        'priority' => 9,    
+        'priority' => 10,    
     ],
 ];
 
