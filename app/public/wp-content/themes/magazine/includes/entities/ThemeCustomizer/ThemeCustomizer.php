@@ -52,6 +52,14 @@ const CUSTOM_COLORS = [
         'label' => 'Textos',
         'priority' => 10,    
     ],
+    'buttonColor' => [
+        'label' => 'Botões',
+        'priority' => 11,    
+    ],
+    'buttonHoverColor' => [
+        'label' => 'Botões (Hover)',
+        'priority' => 12,    
+    ],
 ];
 
 class ThemeCustomizer
