@@ -157,28 +157,40 @@ class ThemeCustomizer
     }
 
     public function custom_social_shares_graphql() {
-        register_graphql_object_type('CustomSocialShares', [
+        register_graphql_object_type('SocialShare', [
             'description' => __('Redes sociais personalizadas do Customizer', 'magazine'),
             'fields' => [
-                'data' => ['type' => 'String'],
+                'name' => [
+                    'type' => 'String',
+                    'description' => __('Nome da rede social', 'magazine'),
+                ],
+                'url' => [
+                    'type' => 'String',
+                    'description' => __('Link da rede social', 'magazine'),
+                ],
+                'slug' => [
+                    'type' => 'String',
+                    'description' => __('Slug da rede social', 'magazine'),
+                ],
             ],
         ]);
 
-        register_graphql_field( 'RootQuery', 'CustomSocialShares', [
-            'type' => 'CustomSocialShares',
+        register_graphql_field( 'RootQuery', 'SocialShare', [
+            'type' => ['list_of' => 'SocialShare'],
             'resolve' => function () {
-                $social_share_field = [];
+                $social_share_list = [];
                 
                 foreach(SOCIAL_MEDIA_LIST as $social) {
                     $slug = sanitize_title($social);
 
-                    $social_share_field[$slug] = [
+                    $social_share_list[$slug] = [
+                        'name' => $social,
                         'slug' => $slug,
-                        'url'  => get_theme_mod("custom_social_share_{$slug}") ? get_theme_mod("custom_social_share_{$slug}") : '',
+                        'url'  => get_theme_mod("custom_social_share_{$slug}"),
                     ];
                 }
 
-                return ["data" => json_encode($social_share_field)];
+                return $social_share_list;
             },
         ]);
     }
