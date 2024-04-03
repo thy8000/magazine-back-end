@@ -6,11 +6,6 @@ if(!defined('ABSPATH')) {
 
 const SOCIAL_MEDIA_LIST = ['Instagram', 'Facebook', 'Twitter', 'LinkedIn', 'YouTube'];
 
-const CUSTOM_LOGO_SIZE = [
-    'width'       => 220,
-    'height'      => 186,
-];
-
 const CUSTOM_COLORS = [
     'pageColor' => [
         'label' => 'Página', 
@@ -84,25 +79,16 @@ class ThemeCustomizer
         register_graphql_object_type('CustomLogo', [
             'description' => __('Logo personalizado do Customizer', 'magazine'),
             'fields' => [
-                'data' => ['type' => 'String'],
+                'url' => ['type' => 'String'],
             ],
         ]);
 
-        register_graphql_field( 'RootQuery', 'custom_logo', [
+        register_graphql_field( 'RootQuery', 'CustomLogo', [
             'type' => 'CustomLogo',
             'resolve' => function () {
-                if(empty(get_theme_mod('custom_logo'))){
-                    return ['data' => ''];
-                }
-
-                $custom_logo_data = [
-                    'url'         => wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' )[0],
-                    'description' => get_bloginfo('name'),
-                    'width'       => CUSTOM_LOGO_SIZE['width'],
-                    'height'      => CUSTOM_LOGO_SIZE['height'],
+                return [
+                    'url' => wp_get_attachment_image_src(get_theme_mod('custom_logo'), 'full' )[0] ?? "",
                 ];
-
-                return ["data" => json_encode($custom_logo_data)];
             },
         ]);
     }
