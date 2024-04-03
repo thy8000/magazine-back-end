@@ -9,51 +9,39 @@ const SOCIAL_MEDIA_LIST = ['Instagram', 'Facebook', 'Twitter', 'LinkedIn', 'YouT
 const CUSTOM_COLORS = [
     'pageColor' => [
         'label' => 'Página', 
-        'priority' => 1,
     ],
     'headerColor' => [
         'label' => 'Header', 
-        'priority' => 2,
     ],
     'headerMegaMenuColor' => [
         'label' => 'Header Mega Menu', 
-        'priority' => 3,
     ],
     'iconColor' => [
         'label' => 'Ícones',
-        'priority' => 4,    
     ],
     'iconHoverColor' => [
-        'label' => 'Ícones (Hover)',
-        'priority' => 5,    
+        'label' => 'Ícones (Hover)',    
     ],
     'linkColor' => [
-        'label' => 'Links',
-        'priority' => 6,    
+        'label' => 'Links',   
     ],
     'linkHoverColor' => [
         'label' => 'Links (Hover)',
-        'priority' => 7,    
     ],
     'titleColor' => [
         'label' => 'Títulos',
-        'priority' => 8,    
     ],
     'titleHoverColor' => [
         'label' => 'Títulos (Hover)',
-        'priority' => 9,    
     ],
     'textColor' => [
-        'label' => 'Textos',
-        'priority' => 10,    
+        'label' => 'Textos', 
     ],
     'buttonColor' => [
         'label' => 'Botões',
-        'priority' => 11,    
     ],
     'buttonHoverColor' => [
-        'label' => 'Botões (Hover)',
-        'priority' => 12,    
+        'label' => 'Botões (Hover)', 
     ],
 ];
 
@@ -107,7 +95,6 @@ class ThemeCustomizer
                 'label'    => esc_html__($color['label'], 'magazine'),
                 'section'  => 'custom_colors',
                 'settings' => $color_slug,
-                'priority' => $color['priority'],
             ]));
         }
     }
@@ -116,21 +103,25 @@ class ThemeCustomizer
         register_graphql_object_type('CustomColors', [
             'description' => __('Cores personalizadas do Customizer', 'magazine'),
             'fields' => [
-                'data' => ['type' => 'String'],
+                'slug' => ['type' => 'String'],
+                'color' => ['type' => 'String'],
             ],
         ]);
 
         register_graphql_field( 'RootQuery', 'CustomColors', [
-            'type' => 'CustomColors',
+            'type' => ['list_of' => 'CustomColors'],
             'resolve' => function () {
 
-                $custom_color_fields = [];
+                $custom_colors = [];
 
                 foreach(CUSTOM_COLORS as $key => $color) {
-                    $custom_color_fields[$key] = get_theme_mod($key) ? get_theme_mod($key) : '#FFFFFF';
+                    $custom_colors[$key] = [
+                        'slug' => $key,
+                        'color' => get_theme_mod($key) ?? '#FFFFFF',
+                    ];
                 }
 
-                return ["data" => json_encode($custom_color_fields)];
+                return $custom_colors;
             },
         ]);
     }
@@ -183,7 +174,7 @@ class ThemeCustomizer
                 foreach(SOCIAL_MEDIA_LIST as $social) {
                     $slug = sanitize_title($social);
 
-                    $social_share_list[$slug] = [
+                    $social_share_list[] = [
                         'name' => $social,
                         'slug' => $slug,
                         'url'  => get_theme_mod("custom_social_share_{$slug}"),
