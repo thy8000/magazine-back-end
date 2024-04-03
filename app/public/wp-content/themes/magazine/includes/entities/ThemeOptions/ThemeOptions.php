@@ -11,6 +11,7 @@ class ThemeOptions
     public function __construct() 
     {
         add_action('acf/init', [$this, 'register_parent_page']);
+        add_action('graphql_register_types', [$this, 'register_parent_page_graphql']);
 
         add_action('acf/init', [$this, 'register_header_sub_page']);
         add_action('acf/init', [$this, 'register_header_sub_page_graphql']);
@@ -27,6 +28,19 @@ class ThemeOptions
             'menu_slug' => PARENT_PAGE_FIELD,
             'position' => 2,
             'redirect' => true,
+        ]);
+    }
+    
+    public function register_parent_page_graphql() {
+        register_graphql_object_type( 'ThemeOptions', [
+            'fields' => [],
+        ]);
+
+        register_graphql_field( 'RootQuery', 'ThemeOptions', [
+            'type' => 'ThemeOptions',
+            'resolve' => function() {
+              return [];
+            }
         ]);
     }
 
@@ -143,38 +157,49 @@ class ThemeOptions
     }
 
     public function register_header_sub_page_graphql() {
-        if(!function_exists('acf_add_options_sub_page')) {
-            return;
-        }
+        register_graphql_object_type( 'ThemeOptionsHeader', [
+            'fields' => [],
+        ]);
 
-        register_graphql_fields('RootQuery', [
-            'TransparentHeader' => [
-                'type' => 'Boolean',
-                'description' => 'Cabeçalho transparente',
-                'resolve' => function() {
-                    return !empty(get_field('transparentHeader', 'option')) ? true : false;
-                }
-            ], 
-            'HeaderCategoriesList' => [
-                'type' => ['list_of' => 'Integer'],
-                'description' => 'Lista de Categorias',
-                'resolve' => function() {
-                    $categories_list = get_field('categoriesList', 'option');
+        register_graphql_field( 'ThemeOptions', 'ThemeOptionsHeader', [
+            'type' => 'ThemeOptionsHeader',
+            'resolve' => function() {
+              return [];
+            }
+        ]);
 
-                    if(empty($categories_list)) {
-                        return [];
+        register_graphql_interface_type( 'ThemeOptionsHeaderInterface', [
+            'fields' => [
+                'TransparentHeader' => [
+                    'type' => 'Boolean',
+                    'description' => 'Cabeçalho transparente',
+                    'resolve' => function() {
+                        return !empty(get_field('transparentHeader', 'option')) ? true : false;
                     }
-
-                    $categories_ID = [];
-
-                    foreach($categories_list as $category_ID) {
-                        $categories_ID[] = $category_ID;
+                ], 
+                'CategoriesID' => [
+                    'type' => ['list_of' => 'Integer'],
+                    'description' => 'Lista de Categorias',
+                    'resolve' => function() {
+                        $categories_list = get_field('categoriesList', 'option');
+    
+                        if(empty($categories_list)) {
+                            return [];
+                        }
+    
+                        $categories_ID = [];
+    
+                        foreach($categories_list as $category_ID) {
+                            $categories_ID[] = $category_ID;
+                        }
+                        
+                        return $categories_ID;
                     }
-                    
-                    return $categories_ID;
-                }
+                ],
             ],
         ]);
+
+        register_graphql_interfaces_to_types( ['ThemeOptionsHeaderInterface'], ['ThemeOptionsHeader'] );
     }
 }
 
