@@ -1,205 +1,96 @@
 <?php
-
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
-
-const PARENT_PAGE_FIELD = 'theme-options';
 
 class ThemeOptions
 {
     public function __construct() 
     {
-        add_action('acf/init', [$this, 'register_parent_page']);
-        add_action('graphql_register_types', [$this, 'register_parent_page_graphql']);
+        $this->parent_page_acf = ThemeOptionsPages::get_acf_parent();
+        $this->parent_page_graphql = ThemeOptionsPages::get_graphql_parent();
 
-        add_action('acf/init', [$this, 'register_header_sub_page']);
-        add_action('acf/init', [$this, 'register_header_sub_page_graphql']);
+        $this->sub_pages_acf = ThemeOptionsPages::get_acf_sub_pages();
+        $this->sub_pages_graphql = ThemeOptionsPages::get_graphql_sub_pages();
+
+        add_action('acf/init', [$this, 'register_acf_fields']);
+        add_action('graphql_register_types', [$this, 'register_graphql_types']);
     }
 
-    public function register_parent_page() 
+    public function register_acf_fields() 
     {
-        if(!function_exists('acf_add_options_page')) {
+        if (!function_exists('acf_add_options_page')) {
             return;
         }
-        
+
+        $this->register_parent_page();
+
+        foreach ($this->sub_pages_acf as $key => $sub_page) {
+            acf_add_options_sub_page([
+                'page_title' => sprintf("%s", $sub_page['title']),
+                'menu_slug' => $key,
+                'parent_slug' => $this->parent_page_acf['menu_slug'],
+            ]);
+
+            foreach ($sub_page['fields'] as $fields) {
+                acf_add_local_field_group($fields);
+            }
+        }
+    }
+
+    private function register_parent_page() 
+    {
         acf_add_options_page([
-            'page_title' => esc_html__('Opções do Tema', 'magazine'),
-            'menu_slug' => PARENT_PAGE_FIELD,
-            'position' => 2,
-            'redirect' => true,
+            ...$this->parent_page_acf
         ]);
     }
-    
-    public function register_parent_page_graphql() {
-        register_graphql_object_type( 'ThemeOptions', [
+
+    public function register_graphql_types() 
+    {
+        $this->register_graphql_parent_object_type();
+
+        foreach ($this->sub_pages_graphql as $key => $sub_page) {
+            $this->register_graphql_object_type($sub_page);
+            $this->register_graphql_interface_type($sub_page);
+        }
+    }
+
+    private function register_graphql_parent_object_type() {
+        register_graphql_object_type($this->parent_page_graphql['slug'], [
             'fields' => [],
         ]);
 
-        register_graphql_field( 'RootQuery', 'ThemeOptions', [
-            'type' => 'ThemeOptions',
+        register_graphql_field('RootQuery', $this->parent_page_graphql['slug'], [
+            'type' => $this->parent_page_graphql['slug'],
             'resolve' => function() {
               return [];
             }
         ]);
     }
 
-    public function register_header_sub_page() {
-        if(!function_exists('acf_add_options_sub_page')) {
-            return;
-        }
-
-        $fields_list = [
-            [
-                'key' => 'group_65fe1003a0974',
-                'title' => 'Categorias',
-                'fields' => [
-                    [
-                        'key' => 'field_65fe105c97b09',
-                        'label' => 'Lista de Categorias',
-                        'name' => 'categoriesList',
-                        'aria-label' => '',
-                        'type' => 'taxonomy',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => [
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ],
-                        'taxonomy' => 'category',
-                        'add_term' => 1,
-                        'save_terms' => 0,
-                        'load_terms' => 0,
-                        'return_format' => 'id',
-                        'field_type' => 'multi_select',
-                        'allow_null' => 1,
-                        'bidirectional' => 0,
-                        'multiple' => 0,
-                        'bidirectional_target' => [],
-                    ],
-                ],
-                'location' => [
-                    [
-                        [
-                            'param' => 'options_page',
-                            'operator' => '==',
-                            'value' => 'header',
-                        ],
-                    ],
-                ],
-                'menu_order' => 0,
-                'position' => 'normal',
-                'style' => 'default',
-                'label_placement' => 'top',
-                'instruction_placement' => 'label',
-                'hide_on_screen' => '',
-                'active' => true,
-                'description' => '',
-                'show_in_rest' => 0,
-            ],
-            [
-                'key' => 'group_6604b54cb74cc',
-                'title' => 'Cabeçalho transparente',
-                'fields' => [
-                    [
-                        'key' => 'field_6604b54c8d372',
-                        'label' => 'Cabeçalho transparente',
-                        'name' => 'transparentHeader',
-                        'aria-label' => '',
-                        'type' => 'true_false',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => [
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ],
-                        'message' => '',
-                        'default_value' => 0,
-                        'ui' => 0,
-                        'ui_on_text' => '',
-                        'ui_off_text' => '',
-                    ],
-                ],
-                'location' => [
-                    [
-                        [
-                            'param' => 'options_page',
-                            'operator' => '==',
-                            'value' => 'header',
-                        ],
-                    ],
-                ],
-                'menu_order' => 0,
-                'position' => 'normal',
-                'style' => 'default',
-                'label_placement' => 'top',
-                'instruction_placement' => 'label',
-                'hide_on_screen' => '',
-                'active' => true,
-                'description' => '',
-                'show_in_rest' => 0,      
-            ],
-        ];
-        
-        acf_add_options_sub_page([
-            'page_title' => esc_html__('Cabecalho', 'magazine'),
-            'menu_slug' => 'header',
-            'parent_slug' => PARENT_PAGE_FIELD,
-        ]);
-
-        foreach($fields_list as $fields) {
-            acf_add_local_field_group($fields);
-        }
-    }
-
-    public function register_header_sub_page_graphql() {
-        register_graphql_object_type( 'ThemeOptionsHeader', [
+    private function register_graphql_object_type($sub_page) 
+    {
+        register_graphql_object_type($sub_page['parent_slug'], [
             'fields' => [],
         ]);
 
-        register_graphql_field( 'ThemeOptions', 'ThemeOptionsHeader', [
-            'type' => 'ThemeOptionsHeader',
+        register_graphql_field($this->parent_page_graphql['slug'], $sub_page['parent_slug'], [
+            'type' => $sub_page['parent_slug'],
             'resolve' => function() {
-              return [];
+                return [];
             }
         ]);
+    }
 
-        register_graphql_interface_type( 'ThemeOptionsHeaderInterface', [
+    private function register_graphql_interface_type($sub_page) 
+    {
+        register_graphql_interface_type($sub_page['interface']['slug'], [
             'fields' => [
-                'TransparentHeader' => [
-                    'type' => 'Boolean',
-                    'description' => 'Cabeçalho transparente',
-                    'resolve' => function() {
-                        return !empty(get_field('transparentHeader', 'option')) ? true : false;
-                    }
-                ], 
-                'CategoriesID' => [
-                    'type' => ['list_of' => 'Integer'],
-                    'description' => 'Lista de Categorias',
-                    'resolve' => function() {
-                        $categories_list = get_field('categoriesList', 'option');
-    
-                        if(empty($categories_list)) {
-                            return [];
-                        }
-    
-                        $categories_ID = [];
-    
-                        foreach($categories_list as $category_ID) {
-                            $categories_ID[] = $category_ID;
-                        }
-                        
-                        return $categories_ID;
-                    }
-                ],
+                ...$sub_page['interface']['fields'],
             ],
         ]);
 
-        register_graphql_interfaces_to_types( ['ThemeOptionsHeaderInterface'], ['ThemeOptionsHeader'] );
+        register_graphql_interfaces_to_types([$sub_page['interface']['slug']], [$sub_page['parent_slug']]);
     }
 }
 
