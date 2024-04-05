@@ -1,0 +1,123 @@
+[04-Apr-2024 23:16:39 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsPages::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin-ajax.php(22): require_once('C:\\Users\\ACER\\D...')
+#9 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php on line 26
+[04-Apr-2024 23:16:39 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-includes\class-wp-recovery-mode-email-service.php on line 367
+[04-Apr-2024 23:16:39 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-includes\class-wp-recovery-mode-email-service.php on line 368
+[04-Apr-2024 23:56:13 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsFields::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin-ajax.php(22): require_once('C:\\Users\\ACER\\D...')
+#9 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[04-Apr-2024 23:56:14 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsFields::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin.php(34): require_once('C:\\Users\\ACER\\D...')
+#9 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\index.php(10): require_once('C:\\Users\\ACER\\D...')
+#10 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[04-Apr-2024 23:56:14 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsFields::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-blog-header.php(13): require_once('C:\\Users\\ACER\\D...')
+#9 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\index.php(17): require('C:\\Users\\ACER\\D...')
+#10 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[05-Apr-2024 00:00:29 UTC] PHP Warning:  Undefined variable $self in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[05-Apr-2024 00:00:29 UTC] PHP Fatal error:  Uncaught Error: Class name must be a valid object or a string in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsFields::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin.php(34): require_once('C:\\Users\\ACER\\D...')
+#9 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\index.php(10): require_once('C:\\Users\\ACER\\D...')
+#10 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[05-Apr-2024 00:00:29 UTC] PHP Warning:  Undefined variable $self in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[05-Apr-2024 00:00:29 UTC] PHP Fatal error:  Uncaught Error: Class name must be a valid object or a string in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php:26
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(13): ThemeOptionsFields::get_acf_sub_pages()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptions.php(97): ThemeOptions->__construct()
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php(8): require('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#7 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#8 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-blog-header.php(13): require_once('C:\\Users\\ACER\\D...')
+#9 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\index.php(17): require('C:\\Users\\ACER\\D...')
+#10 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 26
+[05-Apr-2024 00:19:55 UTC] PHP Warning:  require(C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php): Failed to open stream: No such file or directory in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:19:55 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php:7
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin-ajax.php(22): require_once('C:\\Users\\ACER\\D...')
+#6 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:20:21 UTC] PHP Warning:  require(C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php): Failed to open stream: No such file or directory in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:20:21 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php:7
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-admin\admin.php(34): require_once('C:\\Users\\ACER\\D...')
+#6 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:20:21 UTC] PHP Warning:  require(C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php): Failed to open stream: No such file or directory in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:20:21 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsPages.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php:7
+Stack trace:
+#0 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\_index.php(13): require()
+#1 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\functions.php(9): require_once('C:\\Users\\ACER\\D...')
+#2 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-settings.php(611): include('C:\\Users\\ACER\\D...')
+#3 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-config.php(103): require_once('C:\\Users\\ACER\\D...')
+#4 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-load.php(50): require_once('C:\\Users\\ACER\\D...')
+#5 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-blog-header.php(13): require_once('C:\\Users\\ACER\\D...')
+#6 C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\index.php(17): require('C:\\Users\\ACER\\D...')
+#7 {main}
+  thrown in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\_index.php on line 7
+[05-Apr-2024 00:25:33 UTC] PHP Warning:  Undefined property: ThemeOptionsFields::$teste in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 137
+[05-Apr-2024 00:25:33 UTC] PHP Warning:  Undefined property: ThemeOptionsFields::$teste in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 137
+[05-Apr-2024 00:25:33 UTC] PHP Warning:  Undefined property: ThemeOptionsFields::$teste in C:\Users\ACER\Documents\Projetos Pessoais\magazine-back-end\app\public\wp-content\themes\magazine\includes\entities\ThemeOptions\ThemeOptionsFields.php on line 137

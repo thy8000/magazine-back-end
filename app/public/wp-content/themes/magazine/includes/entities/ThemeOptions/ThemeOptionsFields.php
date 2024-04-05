@@ -4,9 +4,9 @@ if(!defined('ABSPATH')) {
     exit;
 }
 
-class ThemeOptionsPages 
+class ThemeOptionsFields
 {
-    public static function get_acf_parent() {
+    public function get_acf_parent() {
         return [
             'page_title' => sprintf("%s", esc_html__('Opções do Tema', 'magazine')),
             'menu_slug' => 'theme-options',
@@ -15,13 +15,13 @@ class ThemeOptionsPages
         ];
     }
 
-    public static function get_graphql_parent() {
+    public function get_graphql_parent() {
         return [
             'slug' => 'ThemeOptions',
         ];
     }
 
-    public static function get_acf_sub_pages() {
+    public function get_acf_sub_pages() {
         return [
             'header' => [
                 'title' => 'Cabeçalho',
@@ -124,7 +124,7 @@ class ThemeOptionsPages
         ];
     }
 
-    public static function get_graphql_sub_pages() {
+    public function get_graphql_sub_pages() {
         return [
             'header' => [
                 'parent_slug' => 'ThemeOptionsHeader',
@@ -135,7 +135,13 @@ class ThemeOptionsPages
                             'type' => 'Boolean',
                             'description' => 'Cabeçalho transparente',
                             'resolve' => function() {
-                                return !empty(get_field('transparentHeader', 'option')) ? true : false;
+                                $transparent_header = get_field('transparentHeader', 'option');
+
+                                if(empty($transparent_header)) {
+                                    return false;
+                                }
+
+                                return true;
                             }
                         ], 
                         'CategoriesID' => [

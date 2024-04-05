@@ -7,11 +7,13 @@ class ThemeOptions
 {
     public function __construct() 
     {
-        $this->parent_page_acf = ThemeOptionsPages::get_acf_parent();
-        $this->parent_page_graphql = ThemeOptionsPages::get_graphql_parent();
+        $ThemeOptionsFields = new ThemeOptionsFields();
 
-        $this->sub_pages_acf = ThemeOptionsPages::get_acf_sub_pages();
-        $this->sub_pages_graphql = ThemeOptionsPages::get_graphql_sub_pages();
+        $this->parent_page_acf = $ThemeOptionsFields->get_acf_parent();
+        $this->parent_page_graphql = $ThemeOptionsFields->get_graphql_parent();
+
+        $this->sub_pages_acf = $ThemeOptionsFields->get_acf_sub_pages();
+        $this->sub_pages_graphql = $ThemeOptionsFields->get_graphql_sub_pages();
 
         add_action('acf/init', [$this, 'register_acf_fields']);
         add_action('graphql_register_types', [$this, 'register_graphql_types']);
