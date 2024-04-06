@@ -1,99 +1,365 @@
 <?php
-if (!defined('ABSPATH')) {
+
+if(!defined('ABSPATH')) {
     exit;
 }
 
-class ThemeOptions
-{
-    public function __construct() 
-    {
-        $ThemeOptionsFields = new ThemeOptionsFields();
+const PARENT_SLUG = 'theme-options';
+const PARENT_SLUG_GRAPHQL = 'ThemeOptions';
 
-        $this->parent_page_acf = $ThemeOptionsFields->get_acf_parent();
-        $this->parent_page_graphql = $ThemeOptionsFields->get_graphql_parent();
+class ThemeOptions {
+    function __construct() {
+        add_action('init', [$this, 'register_parent_page']);
 
-        $this->sub_pages_acf = $ThemeOptionsFields->get_acf_sub_pages();
-        $this->sub_pages_graphql = $ThemeOptionsFields->get_graphql_sub_pages();
+        add_action('init', [$this, 'register_header_sub_page']);
 
-        add_action('acf/init', [$this, 'register_acf_fields']);
-        add_action('graphql_register_types', [$this, 'register_graphql_types']);
+        add_action('init', [$this, 'register_home_sub_page']);
     }
 
-    public function register_acf_fields() 
-    {
-        if (!function_exists('acf_add_options_page')) {
-            return;
-        }
+    public function register_parent_page() {
+        $ParentPage = new ACFPage([
+            'page_title' => 'Opções do Tema',
+            'menu_slug' => PARENT_SLUG,
+            'position' => 2,
+            'redirect' => true,
+        ]);
 
-        $this->register_parent_page();
-
-        foreach ($this->sub_pages_acf as $key => $sub_page) {
-            acf_add_options_sub_page([
-                'page_title' => sprintf("%s", $sub_page['title']),
-                'menu_slug' => $key,
-                'parent_slug' => $this->parent_page_acf['menu_slug'],
-            ]);
-
-            foreach ($sub_page['fields'] as $fields) {
-                acf_add_local_field_group($fields);
-            }
-        }
-    }
-
-    private function register_parent_page() 
-    {
-        acf_add_options_page([
-            ...$this->parent_page_acf
+        $ParentPageGraphql = new GraphqlPage([
+            'root' => 'RootQuery',
+            'slug' => PARENT_SLUG_GRAPHQL,
         ]);
     }
 
-    public function register_graphql_types() 
-    {
-        $this->register_graphql_parent_object_type();
-
-        foreach ($this->sub_pages_graphql as $key => $sub_page) {
-            $this->register_graphql_object_type($sub_page);
-            $this->register_graphql_interface_type($sub_page);
-        }
-    }
-
-    private function register_graphql_parent_object_type() {
-        register_graphql_object_type($this->parent_page_graphql['slug'], [
-            'fields' => [],
+    public function register_header_sub_page() {
+        $HeaderSubPage = new ACFPage([
+            'page_title' => 'Cabeçalho',
+            'menu_slug' => 'theme-options-header',
+            'parent_slug' => PARENT_SLUG,
         ]);
 
-        register_graphql_field('RootQuery', $this->parent_page_graphql['slug'], [
-            'type' => $this->parent_page_graphql['slug'],
-            'resolve' => function() {
-              return [];
-            }
-        ]);
-    }
-
-    private function register_graphql_object_type($sub_page) 
-    {
-        register_graphql_object_type($sub_page['parent_slug'], [
-            'fields' => [],
-        ]);
-
-        register_graphql_field($this->parent_page_graphql['slug'], $sub_page['parent_slug'], [
-            'type' => $sub_page['parent_slug'],
-            'resolve' => function() {
-                return [];
-            }
-        ]);
-    }
-
-    private function register_graphql_interface_type($sub_page) 
-    {
-        register_graphql_interface_type($sub_page['interface']['slug'], [
+        $HeaderSubPage->register_fields([
+            'key' => 'group_65fe1003a0974',
+            'title' => 'Categorias',
             'fields' => [
-                ...$sub_page['interface']['fields'],
+                [
+                    'key' => 'field_65fe105c97b09',
+                    'label' => 'Lista de Categorias',
+                    'name' => 'categoriesList',
+                    'aria-label' => '',
+                    'type' => 'taxonomy',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'taxonomy' => 'category',
+                    'add_term' => 1,
+                    'save_terms' => 0,
+                    'load_terms' => 0,
+                    'return_format' => 'id',
+                    'field_type' => 'multi_select',
+                    'allow_null' => 1,
+                    'bidirectional' => 0,
+                    'multiple' => 0,
+                    'bidirectional_target' => [],
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'theme-options-header',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,
+        ]);
+
+        $HeaderSubPage->register_fields([
+            'key' => 'group_6604b54cb74cc',
+            'title' => 'Cabeçalho transparente',
+            'fields' => [
+                [
+                    'key' => 'field_6604b54c8d372',
+                    'label' => 'Cabeçalho transparente',
+                    'name' => 'transparentHeader',
+                    'aria-label' => '',
+                    'type' => 'true_false',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'message' => '',
+                    'default_value' => 0,
+                    'ui' => 0,
+                    'ui_on_text' => '',
+                    'ui_off_text' => '',
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'theme-options-header',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,      
+        ]);
+
+        $HeaderSubPageGraphql = new GraphqlPage([
+            'root' => PARENT_SLUG_GRAPHQL,
+            'slug' => 'ThemeOptionsHeader',
+        ]);
+
+        $HeaderSubPageGraphql->register_interface([
+            'interface' => 'ThemeOptionsHeaderInterface',
+            'fields' => [
+                'TransparentHeader' => [
+                    'type' => 'Boolean',
+                    'description' => 'Cabeçalho transparente',
+                    'resolve' => function() {
+                        $transparent_header = get_field('transparentHeader', 'option');
+
+                        if(empty($transparent_header)) {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                ],
+                'CategoriesID' => [
+                    'type' => ['list_of' => 'Integer'],
+                    'description' => 'Lista de Categorias',
+                    'resolve' => function() {
+                        $categories_list = get_field('categoriesList', 'option');
+        
+                        if(empty($categories_list)) {
+                            return [];
+                        }
+        
+                        $categories_ID = [];
+        
+                        foreach($categories_list as $category_ID) {
+                            $categories_ID[] = $category_ID;
+                        }
+                            
+                        return $categories_ID;
+                    }
+                ],
             ],
         ]);
-
-        register_graphql_interfaces_to_types([$sub_page['interface']['slug']], [$sub_page['parent_slug']]);
     }
+
+    public function register_home_sub_page() {
+        $HomeSubPage = new ACFPage([
+            'page_title' => 'Página inicial',
+            'menu_slug' => 'theme-options-home',
+            'parent_slug' => PARENT_SLUG,
+        ]);
+
+        $HomeSubPage->register_fields([
+            'key' => 'group_660733359c7e4',
+            'title' => 'Post Destacado',
+            'fields' => [
+                [
+                    'key' => 'field_6607333524b09',
+                    'label' => 'Post destacado',
+                    'name' => 'homeFeaturedPost',
+                    'aria-label' => '',
+                    'type' => 'post_object',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'post_type' => [
+                        'post',
+                    ],
+                    'post_status' => [
+                        'publish',
+                    ],
+                    'taxonomy' => '',
+                    'return_format' => 'id',
+                    'multiple' => 0,
+                    'allow_null' => 0,
+                    'bidirectional' => 0,
+                    'ui' => 1,
+                    'bidirectional_target' => [],
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'theme-options-home',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,
+        ]);
+/*
+        $HomeSubPage->register_fields([
+            'key' => 'group_66099a691fcec',
+            'title' => 'Listas de Posts',
+            'fields' => [
+                [
+                    'key' => 'field_66099a69857d6',
+                    'label' => 'Coluna de Posts',
+                    'name' => 'homePostsList',
+                    'aria-label' => '',
+                    'type' => 'repeater',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'layout' => 'table',
+                    'pagination' => 0,
+                    'min' => 0,
+                    'max' => 0,
+                    'collapsed' => '',
+                    'button_label' => 'Adicionar linha',
+                    'rows_per_page' => 20,
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_66099aa6857d7',
+                            'label' => 'Posts',
+                            'name' => 'posts',
+                            'aria-label' => '',
+                            'type' => 'taxonomy',
+                            'instructions' => '',
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => [
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ],
+                            'taxonomy' => 'category',
+                            'add_term' => 0,
+                            'save_terms' => 0,
+                            'load_terms' => 0,
+                            'return_format' => 'id',
+                            'field_type' => 'select',
+                            'allow_null' => 1,
+                            'bidirectional' => 0,
+                            'multiple' => 0,
+                            'bidirectional_target' => [],
+                            'parent_repeater' => 'field_66099a69857d6',
+                        ],
+                        [
+                            'key' => 'field_66099af7857d8',
+                            'label' => 'Sidebar',
+                            'name' => 'sidebar',
+                            'aria-label' => '',
+                            'type' => 'taxonomy',
+                            'instructions' => '',
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => [
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ],
+                            'taxonomy' => 'category',
+                            'add_term' => 0,
+                            'save_terms' => 0,
+                            'load_terms' => 0,
+                            'return_format' => 'id',
+                            'field_type' => 'select',
+                            'allow_null' => 0,
+                            'bidirectional' => 0,
+                            'multiple' => 0,
+                            'bidirectional_target' => [],
+                            'parent_repeater' => 'field_66099a69857d6',
+                        ],
+                    ],
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'theme-options-home',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,
+                            
+        ]);
+*/
+        $HomeSubPageGraphql = new GraphqlPage([
+            'root' => PARENT_SLUG_GRAPHQL,
+            'slug' => 'ThemeOptionsHome',
+        ]);
+
+        $HomeSubPageGraphql->register_interface([
+            'interface' => 'ThemeOptionsHomeInterface',
+            'fields' => [
+                'HomeFeaturedPostID' => [
+                    'type' => 'Int',
+                    'description' => 'Post Destacado',
+                    'resolve' => function() {
+                        $featured_post = get_field('homeFeaturedPost', 'option') ?? 0;
+
+                        return $featured_post;
+                    }
+                ],
+            ],
+        ]);
+    }
+
+    
 }
 
 new ThemeOptions();
