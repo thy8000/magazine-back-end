@@ -21,14 +21,13 @@ class GraphqlPage {
 
     public function register_object() {
         register_graphql_object_type($this->args['slug'], [
-            'fields' => [],
+            'fields' => $this->args['fields'] ?? [],
         ]);
 
         register_graphql_field($this->args['root'], $this->args['slug'], [
-            'type' => $this->args['slug'],
-            'resolve' => function() {
-              return [];
-            }
+            'description' => $this->args['description'] ?? '',
+            'type' => $this->args['type'] ?? $this->args['slug'],
+            'resolve' => $this->args['resolve'] ?? function() { return []; },
         ]);
     }
 

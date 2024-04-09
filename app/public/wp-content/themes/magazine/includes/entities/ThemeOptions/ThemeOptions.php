@@ -27,6 +27,7 @@ class ThemeOptions {
         $ParentPageGraphql = new GraphqlPage([
             'root' => 'RootQuery',
             'slug' => PARENT_SLUG_GRAPHQL,
+            'description' => __('Opções do tema', 'magazine'),
         ]);
     }
 
@@ -135,6 +136,7 @@ class ThemeOptions {
         $HeaderSubPageGraphql = new GraphqlPage([
             'root' => PARENT_SLUG_GRAPHQL,
             'slug' => 'ThemeOptionsHeader',
+            'description' => __('Opções do cabeçalho do tema', 'magazine'),
         ]);
 
         $HeaderSubPageGraphql->register_interface([
@@ -341,6 +343,7 @@ class ThemeOptions {
         $HomeSubPageGraphql = new GraphqlPage([
             'root' => PARENT_SLUG_GRAPHQL,
             'slug' => 'ThemeOptionsHome',
+            'description' => __('Opções da página inicial do tema', 'magazine'),
         ]);
 
         $HomeSubPageGraphql->register_interface([
