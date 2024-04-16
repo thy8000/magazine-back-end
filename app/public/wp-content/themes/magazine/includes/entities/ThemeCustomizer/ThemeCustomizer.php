@@ -58,6 +58,9 @@ class ThemeCustomizer
 
         add_action('customize_register', [$this, 'register_custom_color_settings']);
         add_action('init', [$this, 'register_custom_color_graphql']);
+
+        add_action('customize_register', [$this, 'register_custom_logo']);
+        add_action('init', [$this, 'register_custom_logo_graphql']);
     }
 
     public function register_parent_page() {
@@ -172,6 +175,36 @@ class ThemeCustomizer
                 }
 
                 return $custom_colors;
+            },
+        ]);
+    }
+
+    public function register_custom_logo() {
+        add_theme_support( 'custom-logo', [
+            'height' => 480,
+            'width'  => 720,
+        ]);
+    }
+
+    public function register_custom_logo_graphql() {
+        $CustomLogoGraphql = new GraphqlPage([
+            'root'        => $this->parent_slug_graphql,
+            'slug'        => 'CustomLogo',
+            'description' => __('Logo personalizado do customizer', 'magazine'),
+            'fields'      => [
+                'url' => [
+                    'type' => 'String',
+                    'description' => __('URL da imagem', 'magazine'),
+                ],
+            ],
+            'resolve' => function() {
+                $custom_logo = get_theme_mod('custom_logo');
+
+                $custom_logo_URL = wp_get_attachment_image_src(get_theme_mod('custom_logo'), 'full' )[0] ?? "";
+
+                return [
+                    'url' => $custom_logo_URL,
+                ];
             },
         ]);
     }
