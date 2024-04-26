@@ -358,9 +358,9 @@ class ThemeOptions
 
         $SidebarListGraphql = new GraphqlPage([
             'root' => 'ThemeOptionsSidebar',
-            'slug' => 'SidebarList',
+            'slug' => 'Sidebars',
             'description' => __('Lista de sidebars', 'magazine'),
-            'type' => ['list_of' => 'SidebarList'],
+            'type' => ['list_of' => 'Sidebars'],
             'fields' => [
                 'categoryID' => [
                     'type' => 'Int',
