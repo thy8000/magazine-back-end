@@ -1,22 +1,27 @@
 <?php
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
 const PARENT_SLUG = 'theme-options';
 const PARENT_SLUG_GRAPHQL = 'ThemeOptions';
 
-class ThemeOptions {
-    function __construct() {
+class ThemeOptions
+{
+    function __construct()
+    {
         add_action('init', [$this, 'register_parent_page']);
 
         add_action('init', [$this, 'register_header_sub_page']);
 
         add_action('init', [$this, 'register_home_sub_page']);
+
+        add_action('init', [$this, 'register_sidebar_sub_page']);
     }
 
-    public function register_parent_page() {
+    public function register_parent_page()
+    {
         $ParentPage = new ACFPage([
             'page_title' => 'Opções do Tema',
             'menu_slug' => PARENT_SLUG,
@@ -31,7 +36,8 @@ class ThemeOptions {
         ]);
     }
 
-    public function register_header_sub_page() {
+    public function register_header_sub_page()
+    {
         $HeaderSubPage = new ACFPage([
             'page_title' => 'Cabeçalho',
             'menu_slug' => 'theme-options-header',
@@ -130,7 +136,7 @@ class ThemeOptions {
             'hide_on_screen' => '',
             'active' => true,
             'description' => '',
-            'show_in_rest' => 0,      
+            'show_in_rest' => 0,
         ]);
 
         $HeaderSubPageGraphql = new GraphqlPage([
@@ -145,10 +151,10 @@ class ThemeOptions {
                 'TransparentHeader' => [
                     'type' => 'Boolean',
                     'description' => 'Cabeçalho transparente',
-                    'resolve' => function() {
+                    'resolve' => function () {
                         $transparent_header = get_field('transparentHeader', 'option');
 
-                        if(empty($transparent_header)) {
+                        if (empty($transparent_header)) {
                             return false;
                         }
 
@@ -158,19 +164,19 @@ class ThemeOptions {
                 'CategoriesID' => [
                     'type' => ['list_of' => 'Integer'],
                     'description' => 'Lista de Categorias',
-                    'resolve' => function() {
+                    'resolve' => function () {
                         $categories_list = get_field('categoriesList', 'option');
-        
-                        if(empty($categories_list)) {
+
+                        if (empty($categories_list)) {
                             return [];
                         }
-        
+
                         $categories_ID = [];
-        
-                        foreach($categories_list as $category_ID) {
+
+                        foreach ($categories_list as $category_ID) {
                             $categories_ID[] = $category_ID;
                         }
-                            
+
                         return $categories_ID;
                     }
                 ],
@@ -178,7 +184,8 @@ class ThemeOptions {
         ]);
     }
 
-    public function register_home_sub_page() {
+    public function register_home_sub_page()
+    {
         $HomeSubPage = new ACFPage([
             'page_title' => 'Página inicial',
             'menu_slug' => 'theme-options-home',
@@ -237,15 +244,45 @@ class ThemeOptions {
             'description' => '',
             'show_in_rest' => 0,
         ]);
-/*
-        $HomeSubPage->register_fields([
-            'key' => 'group_66099a691fcec',
-            'title' => 'Listas de Posts',
+
+        $HomeSubPageGraphql = new GraphqlPage([
+            'root' => PARENT_SLUG_GRAPHQL,
+            'slug' => 'ThemeOptionsHome',
+            'description' => __('Opções da página inicial do tema', 'magazine'),
+        ]);
+
+        $HomeSubPageGraphql->register_interface([
+            'interface' => 'ThemeOptionsHomeInterface',
+            'fields' => [
+                'HomeFeaturedPostID' => [
+                    'type' => 'Int',
+                    'description' => 'Post Destacado',
+                    'resolve' => function () {
+                        $featured_post = get_field('homeFeaturedPost', 'option') ?? 0;
+
+                        return $featured_post;
+                    }
+                ],
+            ],
+        ]);
+    }
+
+    public function register_sidebar_sub_page()
+    {
+        $SidebarSubPage = new ACFPage([
+            'page_title' => 'Sidebar',
+            'menu_slug' => 'theme-options-sidebar',
+            'parent_slug' => PARENT_SLUG,
+        ]);
+
+        $SidebarSubPage->register_fields([
+            'key' => 'group_662afb6274413',
+            'title' => 'Grupo de campos - Sidebar',
             'fields' => [
                 [
-                    'key' => 'field_66099a69857d6',
-                    'label' => 'Coluna de Posts',
-                    'name' => 'homePostsList',
+                    'key' => 'field_662afb62f4a45',
+                    'label' => 'Lista de Sidebars',
+                    'name' => 'sidebarSidebarList',
                     'aria-label' => '',
                     'type' => 'repeater',
                     'instructions' => '',
@@ -259,45 +296,19 @@ class ThemeOptions {
                     'layout' => 'table',
                     'pagination' => 0,
                     'min' => 0,
-                    'max' => 0,
+                    'max' => 3,
                     'collapsed' => '',
                     'button_label' => 'Adicionar linha',
                     'rows_per_page' => 20,
                     'sub_fields' => [
                         [
-                            'key' => 'field_66099aa6857d7',
-                            'label' => 'Posts',
-                            'name' => 'posts',
+                            'key' => 'field_662afbf9f4a46',
+                            'label' => 'Categoria',
+                            'name' => 'categoria',
                             'aria-label' => '',
                             'type' => 'taxonomy',
                             'instructions' => '',
-                            'required' => 0,
-                            'conditional_logic' => 0,
-                            'wrapper' => [
-                                'width' => '',
-                                'class' => '',
-                                'id' => '',
-                            ],
-                            'taxonomy' => 'category',
-                            'add_term' => 0,
-                            'save_terms' => 0,
-                            'load_terms' => 0,
-                            'return_format' => 'id',
-                            'field_type' => 'select',
-                            'allow_null' => 1,
-                            'bidirectional' => 0,
-                            'multiple' => 0,
-                            'bidirectional_target' => [],
-                            'parent_repeater' => 'field_66099a69857d6',
-                        ],
-                        [
-                            'key' => 'field_66099af7857d8',
-                            'label' => 'Sidebar',
-                            'name' => 'sidebar',
-                            'aria-label' => '',
-                            'type' => 'taxonomy',
-                            'instructions' => '',
-                            'required' => 0,
+                            'required' => 1,
                             'conditional_logic' => 0,
                             'wrapper' => [
                                 'width' => '',
@@ -314,7 +325,7 @@ class ThemeOptions {
                             'bidirectional' => 0,
                             'multiple' => 0,
                             'bidirectional_target' => [],
-                            'parent_repeater' => 'field_66099a69857d6',
+                            'parent_repeater' => 'field_662afb62f4a45',
                         ],
                     ],
                 ],
@@ -324,7 +335,7 @@ class ThemeOptions {
                     [
                         'param' => 'options_page',
                         'operator' => '==',
-                        'value' => 'theme-options-home',
+                        'value' => 'theme-options-sidebar',
                     ],
                 ],
             ],
@@ -337,32 +348,47 @@ class ThemeOptions {
             'active' => true,
             'description' => '',
             'show_in_rest' => 0,
-                            
         ]);
-*/
-        $HomeSubPageGraphql = new GraphqlPage([
+
+        $SidebarSubPageGraphql = new GraphqlPage([
             'root' => PARENT_SLUG_GRAPHQL,
-            'slug' => 'ThemeOptionsHome',
-            'description' => __('Opções da página inicial do tema', 'magazine'),
+            'slug' => 'ThemeOptionsSidebar',
+            'description' => __('Opções de sidebars do tema', 'magazine'),
         ]);
 
-        $HomeSubPageGraphql->register_interface([
-            'interface' => 'ThemeOptionsHomeInterface',
+        $SidebarListGraphql = new GraphqlPage([
+            'root' => 'ThemeOptionsSidebar',
+            'slug' => 'SidebarList',
+            'description' => __('Lista de sidebars', 'magazine'),
+            'type' => ['list_of' => 'SidebarList'],
             'fields' => [
-                'HomeFeaturedPostID' => [
+                'categoryID' => [
                     'type' => 'Int',
-                    'description' => 'Post Destacado',
-                    'resolve' => function() {
-                        $featured_post = get_field('homeFeaturedPost', 'option') ?? 0;
-
-                        return $featured_post;
-                    }
+                    'description' => __('ID da categoria da sidebar', 'magazine'),
                 ],
             ],
+            'resolve' => function () {
+                $sidebar_list = get_field('sidebarSidebarList', 'option') ?? [];
+
+                if (empty($sidebar_list)) {
+                    return $sidebar_list;
+                }
+
+                $sidebar_categories_list = [];
+
+                /**
+                 * TODO: adicionar mais campos
+                 */
+                foreach ($sidebar_list as $sidebar) {
+                    $sidebar_categories_list[] = [
+                        'categoryID' => $sidebar['categoria'],
+                    ];
+                }
+
+                return $sidebar_categories_list;
+            }
         ]);
     }
-
-    
 }
 
 new ThemeOptions();
