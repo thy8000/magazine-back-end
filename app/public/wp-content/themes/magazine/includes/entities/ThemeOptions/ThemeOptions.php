@@ -280,11 +280,11 @@ class ThemeOptions
             'title' => 'Grupo de campos - Sidebar',
             'fields' => [
                 [
-                    'key' => 'field_662afb62f4a45',
-                    'label' => 'Lista de Sidebars',
-                    'name' => 'sidebarSidebarList',
+                    'key' => 'field_663183a991a93',
+                    'label' => 'Sidebar com pesquisa',
+                    'name' => '',
                     'aria-label' => '',
-                    'type' => 'repeater',
+                    'type' => 'tab',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -293,41 +293,117 @@ class ThemeOptions
                         'class' => '',
                         'id' => '',
                     ],
-                    'layout' => 'table',
-                    'pagination' => 0,
-                    'min' => 0,
-                    'max' => 3,
-                    'collapsed' => '',
-                    'button_label' => 'Adicionar linha',
-                    'rows_per_page' => 20,
-                    'sub_fields' => [
-                        [
-                            'key' => 'field_662afbf9f4a46',
-                            'label' => 'Categoria',
-                            'name' => 'categoria',
-                            'aria-label' => '',
-                            'type' => 'taxonomy',
-                            'instructions' => '',
-                            'required' => 1,
-                            'conditional_logic' => 0,
-                            'wrapper' => [
-                                'width' => '',
-                                'class' => '',
-                                'id' => '',
-                            ],
-                            'taxonomy' => 'category',
-                            'add_term' => 0,
-                            'save_terms' => 0,
-                            'load_terms' => 0,
-                            'return_format' => 'id',
-                            'field_type' => 'select',
-                            'allow_null' => 0,
-                            'bidirectional' => 0,
-                            'multiple' => 0,
-                            'bidirectional_target' => [],
-                            'parent_repeater' => 'field_662afb62f4a45',
-                        ],
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_663183d691a94',
+                    'label' => 'Categoria',
+                    'name' => 'sidebarSearchCategory',
+                    'aria-label' => '',
+                    'type' => 'taxonomy',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
                     ],
+                    'taxonomy' => 'category',
+                    'add_term' => 0,
+                    'save_terms' => 0,
+                    'load_terms' => 0,
+                    'return_format' => 'id',
+                    'field_type' => 'select',
+                    'allow_null' => 0,
+                    'bidirectional' => 0,
+                    'multiple' => 0,
+                    'bidirectional_target' => [],
+                ],
+                [
+                    'key' => 'field_6631840f91a95',
+                    'label' => 'Sidebar com redes sociais',
+                    'name' => '',
+                    'aria-label' => '',
+                    'type' => 'tab',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_6631842891a97',
+                    'label' => 'Categoria',
+                    'name' => 'sidebarSocialShareCategory',
+                    'aria-label' => '',
+                    'type' => 'taxonomy',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'taxonomy' => 'category',
+                    'add_term' => 0,
+                    'save_terms' => 0,
+                    'load_terms' => 0,
+                    'return_format' => 'id',
+                    'field_type' => 'select',
+                    'allow_null' => 0,
+                    'bidirectional' => 0,
+                    'multiple' => 0,
+                    'bidirectional_target' => [],
+                ],
+                [
+                    'key' => 'field_6631843a91a98',
+                    'label' => 'Sidebar com arquivos de data',
+                    'name' => '',
+                    'aria-label' => '',
+                    'type' => 'tab',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_6631845c91a9b',
+                    'label' => 'Categoria',
+                    'name' => 'sidebarArchiveCategory',
+                    'aria-label' => '',
+                    'type' => 'taxonomy',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => [
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ],
+                    'taxonomy' => 'category',
+                    'add_term' => 0,
+                    'save_terms' => 0,
+                    'load_terms' => 0,
+                    'return_format' => 'id',
+                    'field_type' => 'select',
+                    'allow_null' => 0,
+                    'bidirectional' => 0,
+                    'multiple' => 0,
+                    'bidirectional_target' => [],
                 ],
             ],
             'location' => [
@@ -362,30 +438,44 @@ class ThemeOptions
             'description' => __('Lista de sidebars', 'magazine'),
             'type' => ['list_of' => 'Sidebars'],
             'fields' => [
+                'name' => [
+                    'type' => 'String',
+                    'description' => __('Nome do Sidebar', 'magazine'),
+                ],
+                'slug' => [
+                    'type' => 'String',
+                    'description' => __('Slug do Sidebar', 'magazine'),
+                ],
                 'categoryID' => [
                     'type' => 'Int',
-                    'description' => __('ID da categoria da sidebar', 'magazine'),
+                    'description' => __('ID da categoria do sidebar.', 'magazine'),
+                ],
+                'categoryName' => [
+                    'type' => 'String',
+                    'description' => __('Nome da categoria do sidebar.', 'magazine'),
                 ],
             ],
             'resolve' => function () {
-                $sidebar_list = get_field('sidebarSidebarList', 'option') ?? [];
-
-                if (empty($sidebar_list)) {
-                    return $sidebar_list;
-                }
-
-                $sidebar_categories_list = [];
-
-                /**
-                 * TODO: adicionar mais campos
-                 */
-                foreach ($sidebar_list as $sidebar) {
-                    $sidebar_categories_list[] = [
-                        'categoryID' => $sidebar['categoria'],
-                    ];
-                }
-
-                return $sidebar_categories_list;
+                return [
+                    [
+                        'name' => __('Sidebar com search', 'magazine'),
+                        'slug' => 'sidebarSearch',
+                        'categoryID' => get_field('sidebarSearchCategory', 'options'),
+                        'categoryName' => get_term(get_field('sidebarSearchCategory', 'options'), 'category')->name ?? '',
+                    ],
+                    [
+                        'name' => __('Sidebar com redes sociais', 'magazine'),
+                        'slug' => 'sidebarSocialShare',
+                        'categoryID' => get_field('sidebarSocialShareCategory', 'options'),
+                        'categoryName' => get_term(get_field('sidebarSocialShareCategory', 'options'), 'category')->name ?? '',
+                    ],
+                    [
+                        'name' => __('Sidebar com arquivo de data', 'magazine'),
+                        'slug' => 'sidebarArchive',
+                        'categoryID' => get_field('sidebarArchiveCategory', 'options'),
+                        'categoryName' => get_term(get_field('sidebarArchiveCategory', 'options'), 'category')->name ?? '',
+                    ],
+                ];
             }
         ]);
     }
